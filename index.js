@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 dotenv.config();
 
-const mongoClient= new MongoClient("mongodb://localhost:27017");
+const mongoClient= new MongoClient(process.env.MONGO_URI);
 let Ecommerce;
 const promise= mongoClient.connect();
 promise.then(()=>{
