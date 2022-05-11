@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "type": "module",
-  "main": "index.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon node index.js"
+    "start": "node ./src/index.js",
+    "dev": "nodemon node ./src/index.js"
   },
   "keywords": [],
   "author": "",
