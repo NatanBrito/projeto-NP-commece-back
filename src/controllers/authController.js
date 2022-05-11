@@ -22,12 +22,15 @@ export async function postRegister(req, res) {
 export async function postSignIn(req,res){
 const {email,password}=req.body;
  try{
-   const user= await db.collection("users").findOne({email});
-   if(user && bcrypt.compareSync(password,user.password)){
-   
-   res.send(user)
- }
+    const user= await db.collection("users").findOne({email});
+    if(user && bcrypt.compareSync(password,user.password)){
+      const secretJwtPassword= process.env.JWT_PASSWORD;
+      const dataUser={email,password};
+      const configuracoes = { expiresIn: 60*60*24*30 };// esta pra 30 dias 
+      const token=jwt.sign(dataUser,secretJwtPassword,configuracoes)
+      res.status(200).send(token)
+    }
  }catch(e){
-   res.status(404).send(e)
- }
+   res.status(401).send(e)
+  }
 }
