@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 dotenv.config();
 
-const mongoClient= new MongoClient(process.env.MONGO_URI);
+const mongoClient= new MongoClient(process.env.MONGO_URI);// se não funcionar, troca pra DBLOCAL
 let Ecommerce;
 const promise= mongoClient.connect();
 promise.then(()=>{
