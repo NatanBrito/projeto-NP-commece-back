@@ -1,6 +1,7 @@
 import db from "../db.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import {  ObjectId} from "mongodb";
 import dotenv from "dotenv";
 dotenv.config();
 export async function postRegister(req, res) {
@@ -30,7 +31,8 @@ const {email,password}=req.body;
     const dataUser={email,password};
     const configuracoes = { expiresIn: 60*60*24*30 };// validade do token esta pra 30 dias 
     const token=jwt.sign(dataUser,secretJwtPassword,configuracoes)
-    res.status(200).send(token)
+    await db.collection("sessions").insertOne({userId:user._id,token})
+    res.status(200).send({token})
  }catch(e){
    res.status(401).send(e)
   }
