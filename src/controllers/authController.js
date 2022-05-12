@@ -35,3 +35,11 @@ const {email,password}=req.body;
    res.status(401).send(e)
   }
 }
+export async function TestProducts(req,res){
+  try{
+    const user= await db.collection("products").findOne({id:1});
+    res.send(user)
+  }catch(e){
+    res.send("deu ruim")
+  }
+}
