@@ -23,13 +23,14 @@ export async function postSignIn(req,res){
 const {email,password}=req.body;
  try{
     const user= await db.collection("users").findOne({email});
-    if(user && bcrypt.compareSync(password,user.password)){
-      const secretJwtPassword= process.env.JWT_PASSWORD;
-      const dataUser={email,password};
-      const configuracoes = { expiresIn: 60*60*24*30 };// esta pra 30 dias 
-      const token=jwt.sign(dataUser,secretJwtPassword,configuracoes)
-      res.status(200).send(token)
+    if(!user || !bcrypt.compareSync(password,user.password)){
+      res.status(401).send("senha ou e-mail incorretos")
     }
+    const secretJwtPassword= process.env.JWT_PASSWORD;
+    const dataUser={email,password};
+    const configuracoes = { expiresIn: 60*60*24*30 };// validade do token esta pra 30 dias 
+    const token=jwt.sign(dataUser,secretJwtPassword,configuracoes)
+    res.status(200).send(token)
  }catch(e){
    res.status(401).send(e)
   }
