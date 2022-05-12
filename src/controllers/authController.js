@@ -23,7 +23,7 @@ export async function postSignIn(req,res){
 const {email,password}=req.body;
  try{
     const user= await db.collection("users").findOne({email});
-    if(!user && !bcrypt.compareSync(password,user.password)){
+    if(!user || !bcrypt.compareSync(password,user.password)){
       res.status(401).send("senha ou e-mail incorretos")
     }
     const secretJwtPassword= process.env.JWT_PASSWORD;
