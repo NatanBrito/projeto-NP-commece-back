@@ -8,6 +8,7 @@ export async function validateRegister(req, res, next) {
     email: joi.string().email().required(),
     password: joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
     confirm: joi.ref("password"),
+    endereco: joi.string().required()
   });
   const { value, error } = schema.validate(body);
 
