@@ -22,3 +22,11 @@ export async function postProduct(req, res) {
     return res.status(500).send("Erro no postProduct")
   }
 }
+export async function getMyProducts(req,res){
+  const user= res.locals.user;
+  try{
+  res.send(user.myProducts)
+  }catch(e){
+    res.status(500).send("erro no getMyProducts")
+  }
+}
