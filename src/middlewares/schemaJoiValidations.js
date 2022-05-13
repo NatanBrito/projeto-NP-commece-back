@@ -28,3 +28,24 @@ export async function validateRegister(req, res, next) {
   }
   next();
 }
+
+export async function validateMyProduct(req, res, next) {
+  const body = req.body
+  const schema = joi.object({
+    category: joi.string().required(),
+    description: joi.string().required(),
+    id: joi.number().required(),
+    image: joi.string().required(),
+    price: joi.number().required(),
+    rating: joi.any(),
+    title: joi.string().required(),
+    _id: joi.any()
+  })
+
+  const {value, error} = schema.validate(body)
+  if(error) {
+    console.log(error.details)
+    return res.status(400).send("Não foi possível adicionar o produto")
+  }
+  next()
+}
