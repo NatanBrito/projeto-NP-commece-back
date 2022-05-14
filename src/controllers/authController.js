@@ -14,6 +14,7 @@ export async function postRegister(req, res) {
       email: body.email,
       password: encryptedPassword,
       confirm: body.confirm,
+      endereco: body.endereco
     });
     res.sendStatus(201);
   } catch (e) {
