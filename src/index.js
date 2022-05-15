@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authRouter from "./routers/authRouter.js";
 import productsRouter from "./routers/productsRouter.js"
+import userRouter from "./routers/userRouter.js"
 
 import "dotenv/config";
 
@@ -14,6 +15,7 @@ dotenv.config();
 
 app.use(authRouter);
 app.use(productsRouter)
+app.use(userRouter);
 
 const port = 5000;
 app.listen(port, () => {
