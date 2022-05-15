@@ -8,6 +8,7 @@ export async function validateRegister(req, res, next) {
     email: joi.string().email().required(),
     password: joi.string().pattern(new RegExp("^[a-zA-Z0-9]{3,30}$")),
     confirm: joi.ref("password"),
+    endereco: joi.string().required()
   });
   const { value, error } = schema.validate(body);
 
@@ -27,4 +28,25 @@ export async function validateRegister(req, res, next) {
     console.log(e);
   }
   next();
+}
+
+export async function validateMyProduct(req, res, next) {
+  const body = req.body
+  const schema = joi.object({
+    category: joi.string().required(),
+    description: joi.string().required(),
+    id: joi.number().required(),
+    image: joi.string().required(),
+    price: joi.number().required(),
+    rating: joi.any(),
+    title: joi.string().required(),
+    _id: joi.any()
+  })
+
+  const {value, error} = schema.validate(body)
+  if(error) {
+    console.log(error.details)
+    return res.status(400).send("Não foi possível adicionar o produto")
+  }
+  next()
 }
