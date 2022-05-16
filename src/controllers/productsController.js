@@ -33,9 +33,21 @@ export async function getMyProducts(req,res){
 }
 export async function deleteMyProduct(req,res){
   const user= res.locals.user;
-  const {id}=req.params;
+  const {today}=req.params;
+  if(parseInt(today)=== 100){
+    try{
+      await db.collection("users").updateOne({email:user.email},{$set:{myProducts:[]}});
+      res.status(200).send("ok")
+      console.log("apagado")
+    }catch(e){
+      res.status(409).send("error delete")
+      console.log("erro")
+    }
+    return;
+  }
+  console.log(user) 
   try{
-    await db.collection("users").updateOne({email:user.email},{$pull:{myProducts:{id:parseInt(id)}}});
+    await db.collection("users").updateOne({email:user.email},{$pull:{myProducts:{today:parseInt(today)}}});
     res.status(200).send("ok")
     console.log("apagado")
   }catch(e){

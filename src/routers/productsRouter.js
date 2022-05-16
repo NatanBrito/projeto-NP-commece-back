@@ -8,7 +8,7 @@ const productsRouter = Router();
 productsRouter.get("/products", getProducts);
 productsRouter.post("/products", validateMyProduct, validateToken, postProduct);
 productsRouter.get("/myproducts", validateToken, getMyProducts);
-productsRouter.delete("/deletemyproducts/:id", validateToken, deleteMyProduct);
+productsRouter.delete("/deletemyproducts/:today", validateToken, deleteMyProduct);
 productsRouter.post("/senddone", validateToken, PostsendDone);
 
 export default productsRouter;
