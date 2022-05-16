@@ -17,7 +17,7 @@ app.use(authRouter);
 app.use(productsRouter)
 app.use(userRouter);
 
-const port = 5000;
+const port = process.env.MONGO_URI || 5000;
 app.listen(port, () => {
   console.log(chalk.bold.green("Silencio, estamos no AR!!!"));
 });
