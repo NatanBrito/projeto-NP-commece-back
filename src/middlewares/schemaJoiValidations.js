@@ -40,7 +40,8 @@ export async function validateMyProduct(req, res, next) {
     price: joi.number().required(),
     rating: joi.any(),
     title: joi.string().required(),
-    _id: joi.any()
+    _id: joi.any(),
+    today: joi.any()
   })
 
   const {value, error} = schema.validate(body)
